@@ -1,9 +1,9 @@
-package sery.vlasenko.developerslife
+package sery.vlasenko.developerslife.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import sery.vlasenko.developerslife.ui.ViewPagerAdapter
+import sery.vlasenko.developerslife.R
 
 class MainActivity : AppCompatActivity()  {
 
