@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
 import sery.vlasenko.developerslife.App
-import sery.vlasenko.developerslife.data.RandomGif
+import sery.vlasenko.developerslife.data.RandomGifDAO
 import sery.vlasenko.developerslife.data.repository.RandomGifRepository
 import sery.vlasenko.developerslife.ui.BaseViewModel
 import sery.vlasenko.developerslife.utils.dec
@@ -28,17 +28,27 @@ class RandomGifViewModel : BaseViewModel() {
     private val _currentPage: MutableLiveData<Int> = MutableLiveData(0)
     val currentPage: LiveData<Int> = _currentPage
 
-    private fun getGif() {
+    private fun getGif(position: Int? = null) {
         _state.value = BestGifState.LoadingState()
 
         backgroundScope.launch {
             val response = repository.getRandomGif()
 
             if (response.data != null) {
-                gifs[gifs.lastIndex - 1] = response.data
+                if (position == null) {
+                    gifs[gifs.lastIndex - 1] = RandomGif(response.data, true)
+                } else {
+                    gifs[position] = RandomGif(response.data, true)
+                }
 
                 _state.postValue(BestGifState.LoadedState(response.data))
             } else {
+                if (position == null) {
+                    gifs[gifs.lastIndex - 1] = RandomGif(null, false)
+                } else {
+                    gifs[position] = RandomGif(null, false)
+                }
+
                 _state.postValue(BestGifState.ErrorState(response.error))
             }
         }
@@ -62,6 +72,10 @@ class RandomGifViewModel : BaseViewModel() {
     fun onBackBtnClick() {
         _currentPage.dec()
     }
+
+    fun onErrorDataClick(pos: Int) {
+        getGif(pos)
+    }
 }
 
 sealed class BestGifState {
@@ -69,3 +83,8 @@ sealed class BestGifState {
     class LoadedState<T>(val data: T) : BestGifState()
     class ErrorState(val message: Any?) : BestGifState()
 }
+
+data class RandomGif(
+    val gif: RandomGifDAO?,
+    var isLoaded: Boolean? = false
+)

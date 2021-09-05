@@ -1,13 +1,13 @@
 package sery.vlasenko.developerslife.data.repository
 
-import sery.vlasenko.developerslife.data.RandomGif
+import sery.vlasenko.developerslife.data.RandomGifDAO
 import sery.vlasenko.developerslife.data.ResponseData
 import java.io.IOException
 import javax.inject.Inject
 
 class RandomGifRepository @Inject constructor(private  var service: DevLifeService) {
 
-    suspend fun getRandomGif(): ResponseData<RandomGif> {
+    suspend fun getRandomGif(): ResponseData<RandomGifDAO> {
         return try {
             val response = service.getRandomGif()
 

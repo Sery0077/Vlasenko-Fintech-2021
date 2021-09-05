@@ -2,7 +2,6 @@ package sery.vlasenko.developerslife.ui.best
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -10,11 +9,11 @@ import kotlinx.android.synthetic.main.item_page_fragment.*
 import sery.vlasenko.developerslife.R
 import sery.vlasenko.developerslife.ui.best.adapter.GifPagerAdapter
 
-class RandomGifFragment : Fragment(R.layout.item_page_fragment) {
+class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter.ClickInterface {
 
     private val viewModel: RandomGifViewModel = RandomGifViewModel()
 
-    private var gifsAdapter: GifPagerAdapter = GifPagerAdapter(viewModel.gifs)
+    private var gifsAdapter: GifPagerAdapter = GifPagerAdapter(this, viewModel.gifs)
 
     override fun onAttach(context: Context) {
         viewModel.onAttach()
@@ -42,8 +41,6 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment) {
             gif_pager.setCurrentItem(it, true)
 
             back_btn.isEnabled = it != 0
-
-            Log.e("fefe", "button ${back_btn.isEnabled}")
         })
 
         super.onViewCreated(view, savedInstanceState)
@@ -70,6 +67,7 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment) {
     }
 
     private fun onLoadedState(data: BestGifState.LoadedState<*>) {
+        next_btn.isEnabled = true
         viewModel.currentPage.value?.let {
             gifsAdapter.notifyItemChanged(it)
         }
@@ -80,6 +78,13 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment) {
     }
 
     private fun onErrorState(error: BestGifState.ErrorState) {
-        Toast.makeText(this.requireContext(), "${error.message}", Toast.LENGTH_SHORT).show()
+        viewModel.currentPage.value?.let {
+            gifsAdapter.notifyItemChanged(it)
+        }
+        next_btn.isEnabled = false
+    }
+
+    override fun onErrorDataClick(pos: Int) {
+        viewModel.onErrorDataClick(pos)
     }
 }

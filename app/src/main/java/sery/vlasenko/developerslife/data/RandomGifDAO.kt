@@ -1,6 +1,6 @@
 package sery.vlasenko.developerslife.data
 
-data class RandomGif(
+data class RandomGifDAO(
     val description: String?,
-    val gifURL: String?,
+    val gifURL: String?
 )
