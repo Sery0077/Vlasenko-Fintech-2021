@@ -83,7 +83,7 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter
         }
         next_btn.isEnabled = false
     }
-
+    
     override fun onErrorData(pos: Int) {
         viewModel.onErrorDataClick(pos)
     }

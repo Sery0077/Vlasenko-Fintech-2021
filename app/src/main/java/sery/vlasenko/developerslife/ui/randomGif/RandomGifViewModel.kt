@@ -32,7 +32,7 @@ class RandomGifViewModel : BaseViewModel() {
         _state.value = BestGifState.LoadingState()
 
         backgroundScope.launch {
-            val response = repository.getRandomGif()
+            val response = repository.getRandomGifTest()
 
             if (response.data != null) {
                 if (position == null) {
