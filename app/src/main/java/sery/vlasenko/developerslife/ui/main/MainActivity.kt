@@ -1,4 +1,4 @@
-package sery.vlasenko.developerslife.ui
+package sery.vlasenko.developerslife.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +11,6 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        pager.adapter = ViewPagerAdapter(this)
+        fragment_pager.adapter = FragmentPagerAdapter(this)
     }
 }

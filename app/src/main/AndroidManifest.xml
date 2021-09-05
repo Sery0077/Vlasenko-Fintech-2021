@@ -13,7 +13,7 @@
         android:theme="@style/Theme.DevelopersLife"
         android:name=".App"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

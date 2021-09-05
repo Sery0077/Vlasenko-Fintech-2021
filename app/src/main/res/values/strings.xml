@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Developers Life</string>
+    <string name="error_load_gif">Произошла ошибка при попытке получить изображение. Нажмите, чтобы попробовать снова</string>
+    <string name="retry_label">Повторить</string>
 </resources>

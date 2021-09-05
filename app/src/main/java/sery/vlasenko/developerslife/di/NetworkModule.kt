@@ -7,12 +7,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sery.vlasenko.developerslife.BuildConfig
 import sery.vlasenko.developerslife.data.repository.DevLifeService
+import sery.vlasenko.developerslife.data.repository.RandomGifRepository
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 class NetworkModule {
 
     @Provides
+    @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.DEV_LIFE_API)
@@ -21,6 +24,7 @@ class NetworkModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor { chain ->
@@ -35,6 +39,11 @@ class NetworkModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideDevLifeService(): DevLifeService =
         provideRetrofit().create(DevLifeService::class.java)
+
+
+    @Provides
+    fun provideRandomGifRepository(): RandomGifRepository = RandomGifRepository(provideDevLifeService())
 }

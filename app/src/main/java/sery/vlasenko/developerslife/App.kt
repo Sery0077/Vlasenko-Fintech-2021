@@ -3,7 +3,8 @@ package sery.vlasenko.developerslife
 import android.app.Application
 import dagger.Component
 import sery.vlasenko.developerslife.di.NetworkModule
-import sery.vlasenko.developerslife.ui.BestGifFragment
+import sery.vlasenko.developerslife.ui.best.RandomGifFragment
+import sery.vlasenko.developerslife.ui.best.RandomGifViewModel
 
 class App: Application() {
 
@@ -20,5 +21,10 @@ class App: Application() {
 
 @Component(modules = [NetworkModule::class])
 interface AppComponent {
-    fun inject(fragment: BestGifFragment)
+
+    // Fragments
+    fun inject(fragment: RandomGifFragment)
+
+    // ViewModels
+    fun inject(viewModel: RandomGifViewModel)
 }
