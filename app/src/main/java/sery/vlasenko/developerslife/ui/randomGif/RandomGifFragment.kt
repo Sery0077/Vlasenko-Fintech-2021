@@ -2,6 +2,7 @@ package sery.vlasenko.developerslife.ui.randomGif
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.item_page_fragment.*
@@ -69,7 +70,7 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter
     private fun onLoadedState(data: BestGifState.LoadedState<*>) {
         next_btn.isEnabled = true
         viewModel.currentPage.value?.let {
-            gifsAdapter.notifyItemChanged(it)
+            gifsAdapter.notifyDataSetChanged()
         }
     }
 
@@ -83,7 +84,7 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter
         }
         next_btn.isEnabled = false
     }
-    
+
     override fun onErrorData(pos: Int) {
         viewModel.onErrorDataClick(pos)
     }

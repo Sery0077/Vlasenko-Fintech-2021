@@ -32,7 +32,7 @@ class RandomGifViewModel : BaseViewModel() {
         _state.value = BestGifState.LoadingState()
 
         backgroundScope.launch {
-            val response = repository.getRandomGifTest()
+            val response = repository.getRandomGif()
 
             if (response.data != null) {
                 if (position == null) {
@@ -71,6 +71,12 @@ class RandomGifViewModel : BaseViewModel() {
 
     fun onBackBtnClick() {
         _currentPage.dec()
+
+        _currentPage.value?.let {
+            if (gifs[it] == null) {
+                getGif(it)
+            }
+        }
     }
 
     fun onErrorDataClick(pos: Int) {
