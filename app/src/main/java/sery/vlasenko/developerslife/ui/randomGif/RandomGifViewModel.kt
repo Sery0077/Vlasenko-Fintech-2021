@@ -59,11 +59,11 @@ class RandomGifViewModel : BaseViewModel() {
     }
 
     fun onNextBtnClick() {
-        gifs.add(null)
         _currentPage.inc()
 
         _currentPage.value?.let {
             if (gifs[it] == null) {
+                gifs.add(null)
                 getGif()
             }
         }

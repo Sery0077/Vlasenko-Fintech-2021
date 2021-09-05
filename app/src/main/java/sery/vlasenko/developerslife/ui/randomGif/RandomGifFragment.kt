@@ -40,6 +40,7 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter
             gif_pager.setCurrentItem(it, true)
 
             back_btn.isEnabled = it != 0
+            next_btn.isEnabled = viewModel.gifs[it]?.isLoaded ?: true
         })
 
         super.onViewCreated(view, savedInstanceState)
@@ -83,7 +84,7 @@ class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter
         next_btn.isEnabled = false
     }
 
-    override fun onErrorDataClick(pos: Int) {
+    override fun onErrorData(pos: Int) {
         viewModel.onErrorDataClick(pos)
     }
 }

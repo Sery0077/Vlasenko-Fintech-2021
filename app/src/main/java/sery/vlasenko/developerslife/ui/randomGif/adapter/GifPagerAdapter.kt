@@ -19,11 +19,11 @@ import sery.vlasenko.developerslife.utils.visible
 
 class GifPagerAdapter(
     val clickListener: ClickInterface,
-    val gifs: ArrayList<RandomGif?>
+    private val gifs: ArrayList<RandomGif?>
 ) : RecyclerView.Adapter<GifPagerAdapter.GifPagerVH>() {
 
     interface ClickInterface {
-        fun onErrorDataClick(pos: Int)
+        fun onErrorData(pos: Int)
     }
 
     override fun onBindViewHolder(holder: GifPagerVH, position: Int) {
@@ -45,7 +45,7 @@ class GifPagerAdapter(
                 itemView.apply {
                     onErrorDataLoad()
                     retry_data_load.setOnClickListener {
-                        clickListener.onErrorDataClick(this@GifPagerVH.adapterPosition)
+                        clickListener.onErrorData(this@GifPagerVH.adapterPosition)
                         onDataReload()
                     }
                 }
@@ -96,7 +96,7 @@ class GifPagerAdapter(
             }
         }
 
-        private inner class RequestListener(val gifUrl: String?) :
+        inner class RequestListener(private val gifUrl: String?) :
             com.bumptech.glide.request.RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -107,11 +107,15 @@ class GifPagerAdapter(
                 onErrorGifLoad()
                 itemView.run {
                     retry_gif_load.setOnClickListener {
-                        Glide.with(context)
-                            .load(gifUrl)
-                            .addListener(RequestListener(gifUrl))
-                            .into(gif_iv)
-                        onLoading()
+                        if (gifUrl == null) {
+                            clickListener.onErrorData(adapterPosition)
+                        } else {
+                            Glide.with(context)
+                                .load(gifUrl)
+                                .addListener(RequestListener(gifUrl))
+                                .into(gif_iv)
+                            onLoading()
+                        }
                     }
                 }
                 return false
