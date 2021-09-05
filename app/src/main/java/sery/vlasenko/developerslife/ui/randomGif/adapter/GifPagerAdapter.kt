@@ -1,4 +1,4 @@
-package sery.vlasenko.developerslife.ui.best.adapter
+package sery.vlasenko.developerslife.ui.randomGif.adapter
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_page_gif.view.*
 import kotlinx.android.synthetic.main.layout_error_data_load.view.*
 import kotlinx.android.synthetic.main.layout_error_gif_load.view.*
 import sery.vlasenko.developerslife.R
-import sery.vlasenko.developerslife.ui.best.RandomGif
+import sery.vlasenko.developerslife.ui.randomGif.RandomGif
 import sery.vlasenko.developerslife.utils.invisible
 import sery.vlasenko.developerslife.utils.visible
 

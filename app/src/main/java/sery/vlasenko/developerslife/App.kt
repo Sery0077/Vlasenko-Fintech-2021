@@ -3,8 +3,8 @@ package sery.vlasenko.developerslife
 import android.app.Application
 import dagger.Component
 import sery.vlasenko.developerslife.di.NetworkModule
-import sery.vlasenko.developerslife.ui.best.RandomGifFragment
-import sery.vlasenko.developerslife.ui.best.RandomGifViewModel
+import sery.vlasenko.developerslife.ui.randomGif.RandomGifFragment
+import sery.vlasenko.developerslife.ui.randomGif.RandomGifViewModel
 
 class App: Application() {
 

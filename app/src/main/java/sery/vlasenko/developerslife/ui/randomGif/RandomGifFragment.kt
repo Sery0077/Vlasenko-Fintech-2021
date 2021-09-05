@@ -1,13 +1,12 @@
-package sery.vlasenko.developerslife.ui.best
+package sery.vlasenko.developerslife.ui.randomGif
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.item_page_fragment.*
 import sery.vlasenko.developerslife.R
-import sery.vlasenko.developerslife.ui.best.adapter.GifPagerAdapter
+import sery.vlasenko.developerslife.ui.randomGif.adapter.GifPagerAdapter
 
 class RandomGifFragment : Fragment(R.layout.item_page_fragment), GifPagerAdapter.ClickInterface {
 

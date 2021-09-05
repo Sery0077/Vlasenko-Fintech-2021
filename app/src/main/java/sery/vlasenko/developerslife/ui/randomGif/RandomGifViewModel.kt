@@ -1,4 +1,4 @@
-package sery.vlasenko.developerslife.ui.best
+package sery.vlasenko.developerslife.ui.randomGif
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
