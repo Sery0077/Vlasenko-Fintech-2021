@@ -71,6 +71,12 @@ class RandomGifViewModel : BaseViewModel() {
 
     fun onBackBtnClick() {
         _currentPage.dec()
+
+        _currentPage.value?.let {
+            if (gifs[it] == null) {
+                getGif(it)
+            }
+        }
     }
 
     fun onErrorDataClick(pos: Int) {

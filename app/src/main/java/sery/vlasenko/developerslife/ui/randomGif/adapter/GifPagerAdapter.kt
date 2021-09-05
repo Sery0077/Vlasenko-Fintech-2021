@@ -20,23 +20,40 @@ import sery.vlasenko.developerslife.utils.visible
 class GifPagerAdapter(
     val clickListener: ClickInterface,
     private val gifs: ArrayList<RandomGif?>
-) : RecyclerView.Adapter<GifPagerAdapter.GifPagerVH>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface ClickInterface {
         fun onErrorData(pos: Int)
     }
 
-    override fun onBindViewHolder(holder: GifPagerVH, position: Int) {
-        holder.bind(gifs[position])
+    private val TYPE_DATA_LOADING = 0
+    private val TYPE_DATA_LOADED = 1
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == TYPE_DATA_LOADED) {
+            (holder as GifPagerVH).bind(gifs[position])
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifPagerVH {
-        return GifPagerVH(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_page_gif, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == TYPE_DATA_LOADING)
+            GifPagerLoadingVH(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_page_loading, parent, false)
+            )
+        else {
+            GifPagerVH(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_page_gif, parent, false)
+            )
+        }
     }
 
     override fun getItemCount(): Int = gifs.size
+
+    override fun getItemViewType(position: Int): Int {
+        return if (gifs[position] == null) TYPE_DATA_LOADING else TYPE_DATA_LOADED
+    }
+
+    inner class GifPagerLoadingVH(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     inner class GifPagerVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -107,6 +124,7 @@ class GifPagerAdapter(
                 onErrorGifLoad()
                 itemView.run {
                     retry_gif_load.setOnClickListener {
+                        onLoading()
                         if (gifUrl == null) {
                             clickListener.onErrorData(adapterPosition)
                         } else {
@@ -114,7 +132,6 @@ class GifPagerAdapter(
                                 .load(gifUrl)
                                 .addListener(RequestListener(gifUrl))
                                 .into(gif_iv)
-                            onLoading()
                         }
                     }
                 }
