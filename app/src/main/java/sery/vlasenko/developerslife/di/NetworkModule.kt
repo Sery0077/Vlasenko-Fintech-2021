@@ -40,7 +40,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideDevLifeService(): DevLifeService =
+    fun provideDevLifeService(): RickAndMotryService =
         provideRetrofit().create(DevLifeService::class.java)
 
 

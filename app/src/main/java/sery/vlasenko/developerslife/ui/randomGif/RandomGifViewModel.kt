@@ -15,6 +15,8 @@ class RandomGifViewModel : BaseViewModel() {
 
     init {
         App.appComponent.inject(this)
+
+
     }
 
     @Inject
